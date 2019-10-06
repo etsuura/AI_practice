@@ -10,7 +10,7 @@ def depthFirstSearch(graph, start):
         print(openlist, closedlist)
         vertex = openlist.pop(0)
         if (vertex == "G"):     #step3
-            closedlist.append(vertex)  # step4
+            closedlist.append(vertex)
             break
         closedlist.append(vertex)   #step4
         path = graph[vertex]
@@ -32,7 +32,7 @@ def breadthFirstSearch(graph, start):
         print(openlist, closedlist)
         vertex = openlist.pop(0)
         if (vertex == "G"):     #step3
-            closedlist.append(vertex)  # step4
+            closedlist.append(vertex)
             break
         closedlist.append(vertex)
         path = graph[vertex]  #step4
@@ -57,9 +57,8 @@ def ex2_4(method):
         "8": list(("5", "7", "10")),
         "9": list(("7")),
         "10": list(("8")),
-        "G": list(("6"))}
-
-    print("ex2_4")
+        "G": list(("6"))
+    }
 
     if (method == "dfs"):
         depthFirstSearch(graph, "S")
@@ -74,14 +73,21 @@ def main():
         "A": list(("S", "C", "D")),
         "B": list(("S", "C")),
         "C": list(("A", "B", "D")),
-        "D": list(("A", "C"))}
+        "D": list(("A", "C"))
+    }
 
+    print("ex2_2")
     depthFirstSearch(graph, "S")
     print("__________________________________")
+
+    print("ex2_3")
     breadthFirstSearch(graph, "S")
     print("__________________________________")
+
+    print("ex2_4")
     ex2_4("dfs")
     print("__________________________________")
+
     ex2_4("bfs")
     print("__________________________________")
 
