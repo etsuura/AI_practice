@@ -76,6 +76,7 @@ def main():
         "D": list(("A", "C"))
     }
 
+    print("__________________________________")
     print("ex2_2")
     depthFirstSearch(graph, "S")
     print("__________________________________")
