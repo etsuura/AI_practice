@@ -18,21 +18,24 @@ def AStarSearch(graph, start, goal):
         cost, _ = queue.get()
         node = openlist.pop(0)          #step3
         if node not in closedlist:
-            # openlist.remove(node)
             closedlist.append(node)
             if node == goal:            #step4
+                # path = []
+                # current = node
+                # while current is not None:
+                #     path.append(current.parent)
                 break
             for i in graph.neighbors(node):     #step5
                 if i not in closedlist:
                     total_cost = cost + graph.get_weight(node, i)
-                    allcost.set_h(i, total_cost)    #h_set
+                    allcost.set_h(i, total_cost)    #set_h
                     queue.put((total_cost, i))
-                else:   #?
+                else:
                     allcost.h.setdefault(i, 0)
 
                 allcost.g.setdefault(i, graph.get_cost(node, i) + now_cost)
                 if allcost.g[i] > graph.get_cost(node, i) + now_cost:
-                    allcost.g[i] = graph.get_cost(node, i) + now_cost   #g_set
+                    allcost.g[i] = graph.get_cost(node, i) + now_cost   #set_g
 
                 if (i not in closedlist) and (i not in openlist):   #step6
                     openlist.append(i)
@@ -68,6 +71,18 @@ def AStarSearch(graph, start, goal):
 
     print(openlist, closedlist)
     print("finish")
+    # print("The shortest route is %d." %path)
+    print("The cost was %d." %allcost.g[goal])
+
+    # return path[::-1]
+
+class Node():
+    def __init__(self, parent=None, position=None):
+        self.parent = parent
+        self.position = position
+
+    def __eq__(self, other):
+        return self.position == other.position
 
 
 class cost_class:
