@@ -12,9 +12,7 @@ def OptimalSearch(graph, start, goal):
         closedlist.append(vertex)
         if vertex == goal:              #step4
             break
-        path_list = []
-        path_list = graph.neighbors(vertex)
-        for i in (path_list):           #step5
+        for i in graph.neighbors(vertex):           #step5
             if i not in closedlist and i not in openlist:
                 openlist.append(i)
             cost_dict.setdefault(i, graph.get_cost(vertex, i) + now_cost)
@@ -31,7 +29,6 @@ def OptimalSearch(graph, start, goal):
             openlist.append(openlist_cost[i][0])
 
         now_cost = cost_dict[openlist_cost[0][0]]
-        path_list = []
 
     print(openlist, closedlist)
     print("finish")

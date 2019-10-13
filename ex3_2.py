@@ -3,8 +3,6 @@ from queue import PriorityQueue
 def ucs(graph, start, goal):
     openlist = [start]
     closedlist = []
-
-    visited = set()
     queue = PriorityQueue()
     queue.put((0, start))
 
@@ -39,7 +37,7 @@ class Graph:
         return self.edges[node]
 
     def get_cost(self, from_node, to_node):
-        return self.weights[(from_node + to_node)]
+        return self.cost[(from_node + to_node)]
 
     def get_weight(self, from_node, to_node):
         return self.weights[(from_node + to_node)]
