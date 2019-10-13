@@ -8,22 +8,22 @@ def ucs(graph, start, goal):
     queue = PriorityQueue()
     queue.put((0, start))
 
+    print("start")
+
     while queue:
         print(openlist, closedlist)
 
         cost, node = queue.get()
-        if node not in visited:
-            visited.add(node)
-            openlist.remove(node)
+        if node not in closedlist:      #step2
+            openlist.remove(node)       #step3
             closedlist.append(node)
-            if node == goal:
-
+            if node == goal:            #step4
                 break
-            for i in graph.neighbors(node):
-                if i not in visited:
-                    total_cost = cost + graph.get_cost(node, i)
+            for i in graph.neighbors(node):     #step5
+                if i not in closedlist:
+                    total_cost = cost + graph.get_weight(node, i)
                     queue.put((total_cost, i))
-                    if (i in closedlist) == False and (i in openlist) == False:
+                    if i not in closedlist and i not in openlist:
                         openlist.append(i)
 
     print(openlist, closedlist)
@@ -41,6 +41,9 @@ class Graph:
     def get_cost(self, from_node, to_node):
         return self.weights[(from_node + to_node)]
 
+    def get_weight(self, from_node, to_node):
+        return self.weights[(from_node + to_node)]
+
 def main():
     graph = Graph()
     graph.edges = {
@@ -51,6 +54,15 @@ def main():
         "D": list(("A", "B", "G")),
         "G": list(("B", "C", "D"))
     }
+    graph.cost = {
+        "SA": 1, "SB": 3, "SC": 5,
+        "AS": 1, "AD": 1,
+        "BS": 3, "BD": 2, "BG": 1,
+        "CS": 5, "CG": 5,
+        "DA": 2, "DB": 3, "DG": 5,
+        "GB": 1, "GC": 5, "GD": 5
+    }
+
     graph.weights = {
         "SA": 3, "SB": 1, "SC": 1,
         "AS": 4, "AD": 3,

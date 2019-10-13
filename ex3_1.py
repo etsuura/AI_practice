@@ -1,42 +1,37 @@
-def OptimalSearch(graph, start):
+def OptimalSearch(graph, start, goal):
     openlist = [start]
     closedlist = []
     cost_dict = {}
     now_cost = 0
 
-    print("Optimal Search")
     print("start")
 
     while len(openlist) != 0:           #step2
         print(openlist, closedlist)
-
         vertex = openlist.pop(0)        #step3
         closedlist.append(vertex)
-
-        if (vertex == "G"):             #step4
+        if vertex == goal:              #step4
             break
-
-        path_list = graph[vertex]       #行き先とコストの取得
-
-        for i in range(len(path_list)): #step5
-            if (path_list[i][0] in closedlist) == False and (path_list[i][0] in openlist) == False:
-                openlist.append(path_list[i][0])                #openlistに行き先追加
-            cost_dict.setdefault(path_list[i][0], path_list[i][1] + now_cost)
-            if cost_dict[path_list[i][0]] > path_list[i][1] + now_cost:
-                cost_dict[path_list[i][0]] = path_list[i][1] + now_cost
+        path_list = []
+        path_list = graph.neighbors(vertex)
+        for i in (path_list):           #step5
+            if i not in closedlist and i not in openlist:
+                openlist.append(i)
+            cost_dict.setdefault(i, graph.get_cost(vertex, i) + now_cost)
+            if cost_dict[i] > graph.get_cost(vertex, i) + now_cost:
+                cost_dict[i] = graph.get_cost(vertex, i) + now_cost
 
         openlist_cost = []
-        for i in openlist:  #openlistとコストの対応付け
+        for i in openlist:
             openlist_cost.append([i, cost_dict[i]])
-
         openlist_cost = sorted(openlist_cost, key=lambda x: x[1])   #2番目の要素をもとにソート
 
         openlist = []
-        for i in range(len(openlist_cost)):     #ソート順に更新
+        for i in range(len(openlist_cost)):
             openlist.append(openlist_cost[i][0])
 
         now_cost = cost_dict[openlist_cost[0][0]]
-        path_list = []      #初期化
+        path_list = []
 
     print(openlist, closedlist)
     print("finish")
@@ -52,6 +47,9 @@ class Graph:
         return self.edges[node]
 
     def get_cost(self, from_node, to_node):
+        return self.cost[(from_node + to_node)]
+
+    def get_weight(self, from_node, to_node):
         return self.weights[(from_node + to_node)]
 
 def main():
@@ -81,7 +79,7 @@ def main():
         "GB": 1, "GC": 1, "GD": 3
     }
 
-    print("ex3_2")
+    print("ex3_1")
     OptimalSearch(graph, "S", "G")
 
 if __name__ == '__main__':
