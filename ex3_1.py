@@ -32,7 +32,8 @@ def OptimalSearch(graph, start, goal):
 
     print(openlist, closedlist)
     print("finish")
-    print("The cost was %d." %cost_dict["G"])
+
+    print("The cost was %d." %cost_dict[goal])
 
 class Graph:
     def __init__(self):

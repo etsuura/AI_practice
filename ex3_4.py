@@ -67,18 +67,18 @@ def AStarSearch(graph, start, goal):
     print(openlist, closedlist)
     print("finish")
 
-    path = []
-    path.append(goal)
-    current_node = goal
-    while current_node != start:
-        for i in graph.neighbors(current_node):
-            if i in closedlist:
-                path.insert(0, i)
-                current_node = i
-                closedlist.remove(i)
-                break
-
-    print("The shortest route is %s." %str(path))
+    # path = []
+    # path.append(goal)
+    # current_node = goal
+    # while current_node != start:
+    #     for i in graph.neighbors(current_node):
+    #         if i in closedlist[::-1]:
+    #             path.insert(0, i)
+    #             current_node = i
+    #             closedlist.remove(i)
+    #             break
+    #
+    # print("The shortest route is %s." %str(path))
     print("The cost was %d." %allcost.g[goal])
 
     # return path[::-1]
@@ -167,7 +167,7 @@ def main():
         "G6": 3
     }
 
-    print("ex3_3")
+    print("ex3_4")
     AStarSearch(graph, "S", "G")
 
 if __name__ == '__main__':
