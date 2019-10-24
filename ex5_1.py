@@ -1,33 +1,33 @@
 # ex5_1
-# def main(n, cost):
-#     dp = [0]*(n+1)
-#     for i in range(n):
-#         dp[i+1] = max(dp[i], dp[i] + cost[i])
-#     print(dp[-1])
-
 def DynamicProgramming(graph, start, goal):
-    dp = [0] * len(graph.text)
-    dict_keys = list(graph.text.keys())
-    max_index = []
+    # dp = [0] * len(graph.text)
+    # dict_keys = list(graph.text.keys())
+    # max_index = []
 
-    # graph.cost_memory[start] = [0, "0"]
-    for i in range(len(graph.text) - 1):
-        vertex = dict_keys[i]
-        cost = []
-        index_list = graph.neighbors(vertex)
-        for index in index_list:
-            cost.append(graph.cost[(vertex + index)])
-        dp[i + 1] = dp[i] + max(cost)   #dp[neighbors] = dp[vertex] + max(cost) cost = [ここに来るノード]　→　Aの値から求める
-        max_index.append(index_list[cost.index(max(cost))])
-        graph.cost_memory[max_index[i]] = [dp[i+1], vertex]
-    print(graph.cost_memory)
+    graph.cost_memory[start] = 0
+    for time in graph.time.keys():
+        for vertex in graph.time[time]:
+            if vertex == goal:
+                break
+            for node in graph.neighbors(vertex):
+                cost = graph.cost_memory[vertex] + graph.get_cost(vertex, node)
+                if node not in graph.cost_memory.keys():
+                    graph.cost_memory[node] = cost
+                    graph.route[node] = vertex
+                elif cost > graph.cost_memory[node]:
+                    graph.cost_memory[node] = cost
+                    graph.route[node] = vertex
 
-    print("MaxCost is %d" %graph.cost_memory["Goal"][0])
+    history = []
+    node = goal
+    while 1:
+        history.append(node)
+        if node == start:
+            break
+        node = graph.route[node]
 
-    # vertex = "Goal"
-    # while vertex is not "Srart":
-    #     print(vertex)
-    #     vertex = graph.cost_memory[vertex][1]
+
+    print(history)
 
 
 class Graph:
@@ -36,6 +36,8 @@ class Graph:
         self.cost = {}
         self.cost_memory = {}
         self.text = {}
+        self.time = {}
+        self.route = {}
 
     def neighbors(self, node):
         return self.edges[node]
@@ -46,7 +48,7 @@ class Graph:
 def main():
     graph = Graph()
     graph.edges = {
-        "Start": ["A", "B", "C"],
+        "START": ["A", "B", "C"],
         "A": ["D"],
         "B": ["D", "E", "F"],
         "C": ["E"],
@@ -56,37 +58,43 @@ def main():
         "G": ["J"],
         "H": ["J", "K", "L"],
         "I": ["K"],
-        "J": ["Goal"],
-        "K": ["Goal"],
-        "L": ["Goal"],
-        "Goal": []
+        "J": ["GOAL"],
+        "K": ["GOAL"],
+        "L": ["GOAL"],
+        "GOAL": []
     }
     graph.cost = {
-        "StartA": 2, "StartB": 5, "StartC": 4,
+        "STARTA": 2, "STARTB": 5, "STARTC": 4,
         "AD": -5,
         "BD": 3, "BE": 2, "BF": 3,
         "CE": 5,
         "DG": 2,
-        "EG": 2, "EH": -2, "EI": 1,
-        "FH": 4,
+        "EG": 2, "EH": -2, "EI": 2,
+        "FH": 0,
         "GJ": 4,
         "HJ": 4, "HK": 2, "HL": 7,
         "IK": 0,
-        "JGoal": 2,
-        "KGoal": 1, "LGoal": 8
+        "JGOAL": 2, "KGOAL": 1, "LGOAL": 8
     }
-    graph.cost_memory = {}
     graph.text = {
-        "Start": "り",
+        "START": "り",
         "A": "ん", "B": "つ", "C": "ば",
         "D": "め", "E": "い", "F": "う",
         "G": "い", "H": "あ", "I": "い",
         "J": "か", "K": "と", "L": "さ",
-        "Goal": "ん"
+        "GOAL": "ん"
+    }
+    graph.time = {
+        "t0": ["START"],
+        "t1": ["A", "B", "C"],
+        "t2": ["D", "E", "F"],
+        "t3": ["G", "H", "I"],
+        "t4": ["J", "K", "L"],
+        "T": ["GOAL"]
     }
 
     print("ex5_1")
-    DynamicProgramming(graph, "Start", "Goal")
+    DynamicProgramming(graph, "START", "GOAL")
 
 if __name__ == '__main__':
     main()

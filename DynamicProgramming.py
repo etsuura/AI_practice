@@ -7,7 +7,7 @@ def solve_by_dijkstra(graph):
     # ノードに最大コストで辿り着く場合の直前のノード
     prev_node_dict = {}
     q = []
-    heapq.heappush(q, (0, 'START'))
+    heapq.heappush(q, [0, 'START'])
     prev_node_dict["START"] = ''
     max_dist_dict["START"] = 0
     while True:
@@ -36,11 +36,11 @@ def culc_max_dist_and_put(graph, q, departure_node, max_dist_dict, prev_node_dic
             # コストが小さかった場合，最大コストを更新
             if tmp_d > max_dist_dict[arrival_node]:
                 max_dist_dict[arrival_node] = tmp_d
-                heapq.heappush(q, (max_dist_dict[arrival_node], arrival_node))
+                heapq.heappush(q, [max_dist_dict[arrival_node], arrival_node])
                 prev_node_dict[arrival_node] = departure_node
         else:
             max_dist_dict[arrival_node] = tmp_d
-            heapq.heappush(q, (max_dist_dict[arrival_node], arrival_node))
+            heapq.heappush(q, [max_dist_dict[arrival_node], arrival_node])
             prev_node_dict[arrival_node] = departure_node
 
 class Graph:
@@ -96,6 +96,13 @@ def main():
         "J": "か", "K": "と", "L": "さ",
         "GOAL": "ん"
     }
+    graph.time = [
+        ["t1", ["A", "B", "C"]],
+        ["t2", ["D", "E", "F"]],
+        ["t3", ["G", "H", "I"]],
+        ["t4", ["J", "K", "L"]],
+        ["T", ["GOAL"]]
+    ]
 
     max_dist_dict, prev_node_dict = solve_by_dijkstra(graph)
     # GOALノードからprev_node_dictをたどって経路を復元
