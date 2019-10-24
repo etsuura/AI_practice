@@ -10,19 +10,24 @@ def DynamicProgramming(graph, start, goal):
     dict_keys = list(graph.text.keys())
     max_index = []
 
-    graph.cost_memory[start] = [0, "0"]
+    # graph.cost_memory[start] = [0, "0"]
     for i in range(len(graph.text) - 1):
         vertex = dict_keys[i]
         cost = []
         index_list = graph.neighbors(vertex)
         for index in index_list:
             cost.append(graph.cost[(vertex + index)])
-        dp[i + 1] = dp[i] + max(cost)
+        dp[i + 1] = dp[i] + max(cost)   #dp[neighbors] = dp[vertex] + max(cost) cost = [ここに来るノード]　→　Aの値から求める
         max_index.append(index_list[cost.index(max(cost))])
         graph.cost_memory[max_index[i]] = [dp[i+1], vertex]
     print(graph.cost_memory)
 
     print("MaxCost is %d" %graph.cost_memory["Goal"][0])
+
+    # vertex = "Goal"
+    # while vertex is not "Srart":
+    #     print(vertex)
+    #     vertex = graph.cost_memory[vertex][1]
 
 
 class Graph:
