@@ -27,13 +27,14 @@ def DynamicProgramming(graph, start, goal):
     for i in texts:
         print(graph.text[i], end="")
     print("")
+    print("最大コストは%dです." %graph.cost_memory[goal])
     print("Finish")
 
     print("-------------------")
     print("ex5_2")
     print("Ft")
-    print("")
     print(graph.cost_memory)
+    print("")
     print("st*")
     print(graph.route)
 
