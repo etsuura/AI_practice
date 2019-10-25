@@ -7,6 +7,7 @@
 - 文字のつながりの利得がリンク上に示してある.
 
 - **得点が最も高くなる経路を見つけよ.**
+
 ![graph](https://github.com/etsuura/AI_practice/blob/master/ex5/graph.jpg)
 
 ### 解答
@@ -71,7 +72,7 @@ st*の結果より最適な経路は
 >Levenshtein Distance is 3
 
 これを表にまとめると下記の表になる.
+
 ![graph](https://github.com/etsuura/AI_practice/blob/master/ex5/table.jpg)
 
-また, 出力結果および表から「はつめいか」と「りつめいかん」の編集距離は3
-で有ることがわかる.
+また, 出力結果および表から「はつめいか」と「りつめいかん」の編集距離は3で有ることがわかる.
