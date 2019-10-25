@@ -1,8 +1,6 @@
 # ex5_1
 def DynamicProgramming(graph, start, goal):
-    # dp = [0] * len(graph.text)
-    # dict_keys = list(graph.text.keys())
-    # max_index = []
+    print("Start")
 
     graph.cost_memory[start] = 0
     for time in graph.time.keys():
@@ -25,10 +23,19 @@ def DynamicProgramming(graph, start, goal):
         if node == start:
             break
         node = graph.route[node]
+    texts = history[::-1]
+    for i in texts:
+        print(graph.text[i], end="")
+    print("")
+    print("Finish")
 
-
-    print(history)
-
+    print("-------------------")
+    print("ex5_2")
+    print("Ft")
+    print("")
+    print(graph.cost_memory)
+    print("st*")
+    print(graph.route)
 
 class Graph:
     def __init__(self):
