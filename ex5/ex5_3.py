@@ -24,12 +24,14 @@ def main():
 
     dp = levenshtein(s1, s2)
 
+    s1 = list(s1)
+    s2 = list(s2)
     for i in range(len(s1)):
         for j in range(len(s2)):
-            print(dp[i][j], end=" ")
+            print(dp[i][j] + 1, end="  ")
         print("")
 
-    print("Levenshtein Distance is %d" %dp[len(s1)][len(s2)])
+    print("Levenshtein Distance is %d" %(dp[len(s1)][len(s2)] + 1))
 
 if __name__ == '__main__':
     main()
