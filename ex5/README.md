@@ -70,4 +70,8 @@ st*の結果より最適な経路は
 >6  6  5  4  3  
 >Levenshtein Distance is 3
 
-これを表にまとめると下記の図になる.
+これを表にまとめると下記の表になる.
+![graph](https://github.com/etsuura/AI_practice/blob/master/ex5/table.jpg)
+
+また, 出力結果および表から「はつめいか」と「りつめいかん」の編集距離は3
+で有ることがわかる.
